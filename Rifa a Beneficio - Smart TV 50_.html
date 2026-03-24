@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rifa a Beneficio - Smart TV 50"</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#05080f;font-family:'Nunito',sans-serif;display:flex;justify-content:center;padding:20px 0;min-height:100vh;}
+.wrap{width:100%;max-width:480px;background:#0a0e1a;border-radius:16px;overflow:hidden;}
+.hero{background:linear-gradient(180deg,#0d1530,#0a0e1a);padding:24px 20px 16px;text-align:center;}
+.badge{display:inline-block;background:linear-gradient(90deg,#e91e8c,#ff5722);color:white;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;border-radius:20px;margin-bottom:12px;}
+.title{font-family:'Bebas Neue',cursive;font-size:52px;line-height:0.95;background:linear-gradient(135deg,#fff,#64b5f6,#e040fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;}
+.sub{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;}
+.tv-outer{width:200px;height:128px;background:linear-gradient(145deg,#1a1a2e,#16213e);border-radius:12px;border:3px solid #334;position:relative;margin:0 auto 4px;box-shadow:0 0 30px rgba(100,181,246,0.2);}
+.tv-screen{position:absolute;inset:8px;border-radius:7px;background:linear-gradient(135deg,#0d2137,#0d47a1);border:2px solid #223;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.tv-brand{font-family:'Bebas Neue',cursive;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:3px;}
+.tv-inch{font-family:'Bebas Neue',cursive;font-size:38px;color:white;line-height:1;}
+.tv-res{font-size:9px;color:#64b5f6;font-weight:700;letter-spacing:2px;}
+.tv-neck{width:16px;height:12px;background:#1a1a2e;margin:0 auto;}
+.tv-base{width:60px;height:7px;background:#1a1a2e;margin:0 auto;border-radius:0 0 6px 6px;}
+.tags{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+.tag{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;}
+.price-bar{background:linear-gradient(90deg,#e91e8c,#9c27b0,#3f51b5);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.price-lbl{font-size:12px;color:rgba(255,255,255,0.85);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.price-val{background:white;color:#9c27b0;font-family:'Bebas Neue',cursive;font-size:24px;padding:2px 14px;border-radius:24px;}
+.sorteo{background:rgba(255,255,255,0.15);color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.3);}
+.stats{display:flex;background:#0f1423;border-bottom:1px solid #1a2040;}
+.stat{flex:1;text-align:center;padding:10px 4px;border-right:1px solid #1a2040;}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Bebas Neue',cursive;font-size:24px;line-height:1;}
+.stat-l{font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.5px;}
+.s1 .stat-n{color:#64b5f6;}
+.s2 .stat-n{color:#69f0ae;}
+.s3 .stat-n{color:#ffd740;font-size:16px;padding-top:4px;}
+.hint{text-align:center;padding:8px;font-size:11px;color:rgba(255,255,255,0.3);background:#0a0e1a;}
+.hint span{color:#64b5f6;font-weight:700;}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:10px;background:#0a0e1a;}
+.num{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border-radius:6px;border:1px solid #1e2a4a;color:rgba(255,255,255,0.6);background:#111827;cursor:pointer;user-select:none;position:relative;}
+.num.sold{background:linear-gradient(135deg,#1565c0,#0d47a1);color:white;border-color:#1976d2;cursor:default;}
+.num.selected{background:linear-gradient(135deg,#e91e8c,#9c27b0);color:white;border-color:#ce93d8;}
+.num.avail:hover{background:#1a2540;border-color:#3d5a99;color:white;}
+.sel-bar{display:none;background:linear-gradient(90deg,#1a0a2e,#12022a);border-top:2px solid #e91e8c;padding:12px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.sel-bar.on{display:flex;}
+.sel-info{font-size:13px;color:rgba(255,255,255,0.7);}
+.sel-info b{color:#e91e8c;font-family:'Bebas Neue',cursive;font-size:18px;}
+.wa-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(90deg,#25D366,#128C7E);color:white;border:none;padding:10px 16px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.clear-btn{background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.4);padding:8px 12px;border-radius:20px;font-size:12px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.legend{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:#080c18;border-top:1px solid #1a2040;border-radius:0 0 12px 12px;}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.4);}
+.dot{width:14px;height:14px;border-radius:3px;}
+.dot.s{background:linear-gradient(135deg,#1565c0,#0d47a1);}
+.dot.sel{background:linear-gradient(135deg,#e91e8c,#9c27b0);}
+.dot.a{background:#111827;border:1px solid #1e2a4a;}
+.wa-info{margin-left:auto;font-size:11px;color:#69f0ae;font-weight:700;}
+.adm-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);padding:5px 12px;border-radius:16px;font-size:11px;cursor:pointer;font-family:'Nunito',sans-serif;margin-left:6px;}
+/* MODALS */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:200;align-items:center;justify-content:center;}
+.overlay.on{display:flex;}
+.modal{background:#0f1423;border-radius:16px;width:min(92%,400px);overflow:hidden;border:1px solid #1e2a4a;max-height:90vh;overflow-y:auto;}
+.mhead{background:linear-gradient(135deg,#0d47a1,#7b1fa2);padding:18px;text-align:center;}
+.mhead h2{font-family:'Bebas Neue',cursive;font-size:24px;color:white;letter-spacing:2px;}
+.mhead p{font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;}
+.mbadge{display:inline-block;margin-top:8px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Bebas Neue',cursive;font-size:20px;padding:3px 18px;border-radius:24px;}
+.mbody{padding:14px 18px;}
+.mrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #1a2040;}
+.mrow:last-child{border-bottom:none;}
+.mk{font-size:11px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
+.mv{font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:6px;}
+.cpbtn{background:#1a2a4a;color:#64b5f6;border:none;padding:2px 8px;border-radius:6px;font-size:10px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.mtotal{background:linear-gradient(135deg,#1a2a0a,#0a2010);border:1px solid #2d5a1b;border-radius:10px;padding:12px;text-align:center;margin:12px 0 8px;}
+.mtotal-l{font-size:11px;color:#69f0ae;text-transform:uppercase;letter-spacing:1px;}
+.mtotal-v{font-family:'Bebas Neue',cursive;font-size:32px;color:#69f0ae;}
+.mfoot{padding:0 18px 18px;display:flex;flex-direction:column;gap:10px;}
+.wa-full{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(90deg,#25D366,#128C7E);color:white;border:none;padding:13px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.close-btn{background:transparent;border:1px solid #1e2a4a;color:rgba(255,255,255,0.35);padding:10px;border-radius:10px;font-size:13px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.admin-wrap{padding:20px;}
+.admin-wrap h2{font-family:'Bebas Neue',cursive;font-size:22px;color:#64b5f6;letter-spacing:1px;margin-bottom:12px;}
+.admin-wrap label{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;display:block;margin-bottom:3px;margin-top:10px;}
+.admin-wrap input,.admin-wrap select{width:100%;padding:8px 10px;border:1px solid #1e2a4a;border-radius:7px;font-size:13px;background:#080c18;color:rgba(255,255,255,0.8);font-family:'Nunito',sans-serif;}
+.btn-row{display:flex;gap:8px;margin-top:14px;}
+.btn-p{flex:1;background:linear-gradient(90deg,#1976d2,#0d47a1);color:white;border:none;padding:9px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.btn-s{flex:1;background:transparent;color:rgba(255,255,255,0.4);border:1px solid #1e2a4a;padding:9px;border-radius:7px;font-size:13px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.err{color:#ef5350;font-size:11px;margin-top:4px;display:none;}
+.tabs{display:flex;border-bottom:1px solid #1e2a4a;margin-bottom:12px;}
+.tab{flex:1;text-align:center;padding:9px;font-size:12px;font-weight:700;cursor:pointer;color:rgba(255,255,255,0.3);font-family:'Nunito',sans-serif;}
+.tab.on{color:#64b5f6;border-bottom:2px solid #64b5f6;margin-bottom:-1px;}
+.reg-list{max-height:240px;overflow-y:auto;}
+.reg{padding:8px 10px;border:1px solid #1e2a4a;border-radius:7px;margin-bottom:6px;background:#080c18;font-size:12px;}
+.rn{font-family:'Bebas Neue',cursive;font-size:18px;color:#64b5f6;}
+.rname{font-weight:700;color:rgba(255,255,255,0.8);margin-left:6px;}
+.rref{color:rgba(255,255,255,0.3);font-size:10px;margin-top:2px;}
+.empty{color:rgba(255,255,255,0.2);font-size:12px;text-align:center;padding:20px;}
+.btn-d{background:transparent;color:#ef5350;border:1px solid #b71c1c;padding:5px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#1976d2,#7b1fa2);color:white;padding:9px 20px;border-radius:20px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:999;font-family:'Nunito',sans-serif;}
+.toast.on{opacity:1;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="badge">Rifa Solidaria a Beneficio</div>
+    <div class="title">GANA UN<br>SMART TV</div>
+    <div class="sub">4K Ultra HD &bull; 50 pulgadas</div>
+    <div class="tv-outer">
+      <div class="tv-screen">
+        <div class="tv-brand">SMART TV</div>
+        <div class="tv-inch">50"</div>
+        <div class="tv-res">4K ULTRA HD</div>
+      </div>
+    </div>
+    <div class="tv-neck"></div>
+    <div class="tv-base"></div>
+    <div class="tags">
+      <span class="tag">Netflix</span><span class="tag">YouTube</span>
+      <span class="tag">Bluetooth</span><span class="tag">Wi-Fi</span><span class="tag">HDMI x3</span>
+    </div>
+  </div>
+  <div class="price-bar">
+    <span class="price-lbl">Valor por numero</span>
+    <span class="price-val">$5.000</span>
+    <span class="sorteo">Sorteo 30 de Abril</span>
+  </div>
+  <div class="stats">
+    <div class="stat s1"><div class="stat-n" id="cnt-s">116</div><div class="stat-l">Vendidos</div></div>
+    <div class="stat s2"><div class="stat-n" id="cnt-a">84</div><div class="stat-l">Disponibles</div></div>
+    <div class="stat s3"><div class="stat-n" id="cnt-t">$580.000</div><div class="stat-l">Recaudado</div></div>
+  </div>
+  <div class="hint">Toca un numero para <span>seleccionarlo</span> y ver como pagar</div>
+  <div class="grid" id="grid">
+<div class="num sold" title="Fabian Galdames">1</div>
+<div class="num sold" title="Fabian Galdames">2</div>
+<div class="num sold" title="Fabian Galdames">3</div>
+<div class="num sold" title="Fabian Galdames">4</div>
+<div class="num sold" title="Carolina Nahuelhual">5</div>
+<div class="num sold" title="Carolina Tilleria">6</div>
+<div class="num sold" title="Fabian Galdames">7</div>
+<div class="num sold" title="Mario Campos">8</div>
+<div class="num sold" title="Fabian Galdames">9</div>
+<div class="num sold" title="Catalina Espinoza">10</div>
+<div class="num sold" title="Carolina Tilleria">11</div>
+<div class="num sold" title="Maria Valeska Torres">12</div>
+<div class="num sold" title="Denisse Zavala">13</div>
+<div class="num sold" title="Denisse Sanhueza">14</div>
+<div class="num sold" title="Alondra Lagos">15</div>
+<div class="num sold" title="Alicia">16</div>
+<div class="num sold" title="Carolina Tilleria">17</div>
+<div class="num sold" title="Alondra Lagos">18</div>
+<div class="num sold" title="Fabian Galdames">19</div>
+<div class="num sold" title="Paz Arriagada">20</div>
+<div class="num sold" title="Yas Orellana">21</div>
+<div class="num sold" title="Carolina Tilleria">22</div>
+<div class="num sold" title="Alex Nuñez">23</div>
+<div class="num sold" title="Natalia Caceres">24</div>
+<div class="num sold" title="Eliana">25</div>
+<div class="num sold" title="Catalina Alburquenque">26</div>
+<div class="num sold" title="Catalina Espinoza">27</div>
+<div class="num sold" title="Paola Beltran">28</div>
+<div class="num sold" title="Catalina Espinoza">29</div>
+<div class="num sold" title="Fabian Galdames">30</div>
+<div class="num sold" title="Alex Nuñez">31</div>
+<div class="num sold" title="Rolando Espinoza">32</div>
+<div class="num sold" title="Gabriel Araya">33</div>
+<div class="num sold" title="Kimberly Martinez">34</div>
+<div class="num sold" title="Yohnma Prado">35</div>
+<div class="num sold" title="Alex Nuñez">36</div>
+<div class="num sold" title="Alex Nuñez">37</div>
+<div class="num avail" onclick="seleccionar(this,38)">38</div>
+<div class="num avail" onclick="seleccionar(this,39)">39</div>
+<div class="num sold" title="Gabriel Araya">40</div>
+<div class="num sold" title="Alex Nuñez">41</div>
+<div class="num sold" title="Alex Nuñez">42</div>
+<div class="num sold" title="Natalia Quezada">43</div>
+<div class="num sold" title="Carmen Cruzat">44</div>
+<div class="num sold" title="Jocelyn Espinoza">45</div>
+<div class="num sold" title="Gabriel Araya">46</div>
+<div class="num sold" title="Alex Nuñez">47</div>
+<div class="num sold" title="Gabriel Araya">48</div>
+<div class="num sold" title="Paola Gonzalez">49</div>
+<div class="num sold" title="Paola Gonzalez">50</div>
+<div class="num sold" title="Paola Gonzalez">51</div>
+<div class="num sold" title="Alex Nuñez">52</div>
+<div class="num sold" title="Carmen Cruzat">53</div>
+<div class="num avail" onclick="seleccionar(this,54)">54</div>
+<div class="num sold" title="Gabriel Araya">55</div>
+<div class="num sold" title="Gabriel Araya">56</div>
+<div class="num sold" title="Ailin Caceres">57</div>
+<div class="num sold" title="Alex Nuñez">58</div>
+<div class="num sold" title="Sofia Mena">59</div>
+<div class="num sold" title="Macarena">60</div>
+<div class="num avail" onclick="seleccionar(this,61)">61</div>
+<div class="num sold" title="Gabriel Araya">62</div>
+<div class="num avail" onclick="seleccionar(this,63)">63</div>
+<div class="num sold" title="Gabriel Araya">64</div>
+<div class="num avail" onclick="seleccionar(this,65)">65</div>
+<div class="num sold" title="Alex Nuñez">66</div>
+<div class="num avail" onclick="seleccionar(this,67)">67</div>
+<div class="num sold" title="Jocelyn Espinoza">68</div>
+<div class="num sold" title="Natalia Quezada">69</div>
+<div class="num sold" title="Alex Nuñez">70</div>
+<div class="num sold" title="Catalina Espinoza">71</div>
+<div class="num avail" onclick="seleccionar(this,72)">72</div>
+<div class="num avail" onclick="seleccionar(this,73)">73</div>
+<div class="num avail" onclick="seleccionar(this,74)">74</div>
+<div class="num sold" title="Jorge Castro">75</div>
+<div class="num sold" title="Fabian Galdames">76</div>
+<div class="num sold" title="Rolando Espinoza">77</div>
+<div class="num avail" onclick="seleccionar(this,78)">78</div>
+<div class="num sold" title="Catalina Espinoza">79</div>
+<div class="num avail" onclick="seleccionar(this,80)">80</div>
+<div class="num sold" title="Gabriel Araya">81</div>
+<div class="num sold" title="Catalina Espinoza">82</div>
+<div class="num sold" title="Catalina Espinoza">83</div>
+<div class="num sold" title="Catalina Espinoza">84</div>
+<div class="num sold" title="Constanza Cuevas">85</div>
+<div class="num sold" title="Jorge Castro">86</div>
+<div class="num avail" onclick="seleccionar(this,87)">87</div>
+<div class="num sold" title="Alex Nuñez">88</div>
+<div class="num avail" onclick="seleccionar(this,89)">89</div>
+<div class="num sold" title="Gabriel Araya">90</div>
+<div class="num avail" onclick="seleccionar(this,91)">91</div>
+<div class="num avail" onclick="seleccionar(this,92)">92</div>
+<div class="num avail" onclick="seleccionar(this,93)">93</div>
+<div class="num avail" onclick="seleccionar(this,94)">94</div>
+<div class="num sold" title="Fabian Galdames">95</div>
+<div class="num avail" onclick="seleccionar(this,96)">96</div>
+<div class="num avail" onclick="seleccionar(this,97)">97</div>
+<div class="num sold" title="Alex Nuñez">98</div>
+<div class="num sold" title="Alex Nuñez">99</div>
+<div class="num sold" title="Gabriel Araya">100</div>
+<div class="num sold" title="Maria Valeska Torres">101</div>
+<div class="num avail" onclick="seleccionar(this,102)">102</div>
+<div class="num avail" onclick="seleccionar(this,103)">103</div>
+<div class="num sold" title="Benjamin Caceres Lopez">104</div>
+<div class="num avail" onclick="seleccionar(this,105)">105</div>
+<div class="num avail" onclick="seleccionar(this,106)">106</div>
+<div class="num sold" title="Gabriel Araya">107</div>
+<div class="num sold" title="Alex Nuñez">108</div>
+<div class="num avail" onclick="seleccionar(this,109)">109</div>
+<div class="num sold" title="Alex Nuñez">110</div>
+<div class="num sold" title="Gabriel Araya">111</div>
+<div class="num avail" onclick="seleccionar(this,112)">112</div>
+<div class="num sold" title="Alex Nuñez">113</div>
+<div class="num avail" onclick="seleccionar(this,114)">114</div>
+<div class="num sold" title="Alex Nuñez">115</div>
+<div class="num sold" title="Alex Nuñez">116</div>
+<div class="num avail" onclick="seleccionar(this,117)">117</div>
+<div class="num avail" onclick="seleccionar(this,118)">118</div>
+<div class="num sold" title="Gabriel Araya">119</div>
+<div class="num sold" title="Yaz Orellana">120</div>
+<div class="num sold" title="Martina Caceres">121</div>
+<div class="num avail" onclick="seleccionar(this,122)">122</div>
+<div class="num avail" onclick="seleccionar(this,123)">123</div>
+<div class="num sold" title="Natalia Quezada">124</div>
+<div class="num avail" onclick="seleccionar(this,125)">125</div>
+<div class="num avail" onclick="seleccionar(this,126)">126</div>
+<div class="num sold" title="Gabriel Araya">127</div>
+<div class="num avail" onclick="seleccionar(this,128)">128</div>
+<div class="num avail" onclick="seleccionar(this,129)">129</div>
+<div class="num avail" onclick="seleccionar(this,130)">130</div>
+<div class="num avail" onclick="seleccionar(this,131)">131</div>
+<div class="num sold" title="Gabriel Araya">132</div>
+<div class="num avail" onclick="seleccionar(this,133)">133</div>
+<div class="num sold" title="Alex Nuñez">134</div>
+<div class="num avail" onclick="seleccionar(this,135)">135</div>
+<div class="num avail" onclick="seleccionar(this,136)">136</div>
+<div class="num sold" title="Alex Nuñez">137</div>
+<div class="num avail" onclick="seleccionar(this,138)">138</div>
+<div class="num sold" title="Gabriel Araya">139</div>
+<div class="num sold" title="Alex Nuñez">140</div>
+<div class="num sold" title="Gabriel Araya">141</div>
+<div class="num avail" onclick="seleccionar(this,142)">142</div>
+<div class="num avail" onclick="seleccionar(this,143)">143</div>
+<div class="num avail" onclick="seleccionar(this,144)">144</div>
+<div class="num sold" title="Alex Nuñez">145</div>
+<div class="num avail" onclick="seleccionar(this,146)">146</div>
+<div class="num avail" onclick="seleccionar(this,147)">147</div>
+<div class="num avail" onclick="seleccionar(this,148)">148</div>
+<div class="num avail" onclick="seleccionar(this,149)">149</div>
+<div class="num sold" title="Alex Nuñez">150</div>
+<div class="num avail" onclick="seleccionar(this,151)">151</div>
+<div class="num avail" onclick="seleccionar(this,152)">152</div>
+<div class="num avail" onclick="seleccionar(this,153)">153</div>
+<div class="num sold" title="Gabriel Araya">154</div>
+<div class="num avail" onclick="seleccionar(this,155)">155</div>
+<div class="num avail" onclick="seleccionar(this,156)">156</div>
+<div class="num avail" onclick="seleccionar(this,157)">157</div>
+<div class="num sold" title="Alex Nuñez">158</div>
+<div class="num avail" onclick="seleccionar(this,159)">159</div>
+<div class="num sold" title="Gabriel Araya">160</div>
+<div class="num avail" onclick="seleccionar(this,161)">161</div>
+<div class="num sold" title="Alex Nuñez">162</div>
+<div class="num avail" onclick="seleccionar(this,163)">163</div>
+<div class="num avail" onclick="seleccionar(this,164)">164</div>
+<div class="num sold" title="Gabriel Araya">165</div>
+<div class="num avail" onclick="seleccionar(this,166)">166</div>
+<div class="num avail" onclick="seleccionar(this,167)">167</div>
+<div class="num avail" onclick="seleccionar(this,168)">168</div>
+<div class="num sold" title="Natalia Quezada">169</div>
+<div class="num sold" title="Alex Nuñez">170</div>
+<div class="num avail" onclick="seleccionar(this,171)">171</div>
+<div class="num avail" onclick="seleccionar(this,172)">172</div>
+<div class="num avail" onclick="seleccionar(this,173)">173</div>
+<div class="num avail" onclick="seleccionar(this,174)">174</div>
+<div class="num sold" title="Jorge Castro">175</div>
+<div class="num avail" onclick="seleccionar(this,176)">176</div>
+<div class="num avail" onclick="seleccionar(this,177)">177</div>
+<div class="num avail" onclick="seleccionar(this,178)">178</div>
+<div class="num sold" title="Catalina Espinoza">179</div>
+<div class="num avail" onclick="seleccionar(this,180)">180</div>
+<div class="num avail" onclick="seleccionar(this,181)">181</div>
+<div class="num avail" onclick="seleccionar(this,182)">182</div>
+<div class="num avail" onclick="seleccionar(this,183)">183</div>
+<div class="num avail" onclick="seleccionar(this,184)">184</div>
+<div class="num avail" onclick="seleccionar(this,185)">185</div>
+<div class="num avail" onclick="seleccionar(this,186)">186</div>
+<div class="num avail" onclick="seleccionar(this,187)">187</div>
+<div class="num avail" onclick="seleccionar(this,188)">188</div>
+<div class="num avail" onclick="seleccionar(this,189)">189</div>
+<div class="num sold" title="Gabriel Araya">190</div>
+<div class="num avail" onclick="seleccionar(this,191)">191</div>
+<div class="num sold" title="Alex Nuñez">192</div>
+<div class="num avail" onclick="seleccionar(this,193)">193</div>
+<div class="num avail" onclick="seleccionar(this,194)">194</div>
+<div class="num avail" onclick="seleccionar(this,195)">195</div>
+<div class="num avail" onclick="seleccionar(this,196)">196</div>
+<div class="num sold" title="Alex Nuñez">197</div>
+<div class="num avail" onclick="seleccionar(this,198)">198</div>
+<div class="num sold" title="Gabriel Araya">199</div>
+<div class="num sold" title="Fabian Galdames">200</div>
+  </div>
+  <div class="sel-bar" id="sel-bar">
+    <div class="sel-info">N&#176; <b id="sel-lbl">-</b> &mdash; Total: <b id="sel-tot" style="color:#69f0ae;">$0</b></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="clear-btn" onclick="clearSel()">Limpiar</button>
+      <button class="wa-btn" onclick="verPago()">
+        <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Ver datos de pago
+      </button>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="leg"><div class="dot s"></div>Vendido</div>
+    <div class="leg"><div class="dot sel"></div>Seleccionado</div>
+    <div class="leg"><div class="dot a"></div>Disponible</div>
+    <span class="wa-info">+56 9 6418 9290</span>
+    <button class="adm-btn" onclick="abrirAdmin()">Admin</button>
+  </div>
+</div>
+
+<!-- PAGO MODAL -->
+<div class="overlay" id="ov-pago">
+  <div class="modal">
+    <div class="mhead">
+      <h2>Datos de Pago</h2>
+      <p>Transfiere y envia tu comprobante por WhatsApp</p>
+      <div class="mbadge" id="pago-nums">Numero: -</div>
+    </div>
+    <div class="mbody">
+      <div class="mrow"><span class="mk">Titular</span><span class="mv">Marion Mendoza</span></div>
+      <div class="mrow"><span class="mk">RUT</span><span class="mv">18.094.508-3 <button class="cpbtn" onclick="cp('18094508-3')">Copiar</button></span></div>
+      <div class="mrow"><span class="mk">Banco</span><span class="mv">Banco Santander</span></div>
+      <div class="mrow"><span class="mk">Tipo</span><span class="mv">Cuenta Vista</span></div>
+      <div class="mrow"><span class="mk">N cuenta</span><span class="mv">005618094508 <button class="cpbtn" onclick="cp('005618094508')">Copiar</button></span></div>
+      <div class="mrow"><span class="mk">Correo</span><span class="mv" style="font-size:11px;">marion.mendoza.e@gmail.com <button class="cpbtn" onclick="cp('marion.mendoza.e@gmail.com')">Copiar</button></span></div>
+      <div class="mtotal"><div class="mtotal-l">Total a transferir</div><div class="mtotal-v" id="pago-total">$5.000</div></div>
+    </div>
+    <div class="mfoot">
+      <button class="wa-full" id="btn-wa">
+        <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar comprobante por WhatsApp
+      </button>
+      <button class="close-btn" onclick="cerrarPago()">Volver</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="overlay" id="ov-login">
+  <div class="modal">
+    <div class="admin-wrap">
+      <h2>Acceso Admin</h2>
+      <label>Contrasena</label>
+      <input type="password" id="inp-pass" placeholder="........"/>
+      <div class="err" id="err-pass">Contrasena incorrecta</div>
+      <div class="btn-row">
+        <button class="btn-s" onclick="cerrarLogin()">Cancelar</button>
+        <button class="btn-p" onclick="login()">Entrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="ov-admin">
+  <div class="modal">
+    <div class="admin-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <h2 style="margin:0;">Panel Admin</h2>
+        <button class="btn-s" onclick="cerrarAdmin()" style="padding:4px 10px;font-size:11px;">Cerrar</button>
+      </div>
+      <div class="tabs">
+        <div class="tab on" id="t1" onclick="tab('vender')">Registrar</div>
+        <div class="tab" id="t2" onclick="tab('ventas')">Ver Ventas</div>
+      </div>
+      <div id="p-vender">
+        <label>Numero</label>
+        <select id="sel-n"><option value="">-- Selecciona --</option></select>
+        <label>Nombre</label>
+        <input type="text" id="inp-n" placeholder="Nombre comprador"/>
+        <label>Referencia pago</label>
+        <input type="text" id="inp-r" placeholder="Ref. transferencia"/>
+        <div class="err" id="err-v">Completa todos los campos</div>
+        <div class="btn-row">
+          <button class="btn-p" onclick="registrar()">Registrar Venta</button>
+        </div>
+      </div>
+      <div id="p-ventas" style="display:none;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:11px;color:rgba(255,255,255,0.3);" id="v-count">0 ventas</span>
+          <button class="btn-d" onclick="resetTodo()">Reiniciar</button>
+        </div>
+        <div class="reg-list" id="reg-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DB='https://rifa-beneficio-marion-default-rtdb.firebaseio.com';
+const WA='56964189290';
+const PASS=['admin2024','2026'];
+const PRICE=5000;
+const VENDIDOS_BASE={1:"Fabian Galdames",2:"Fabian Galdames",3:"Fabian Galdames",4:"Fabian Galdames",5:"Carolina Nahuelhual",6:"Carolina Tilleria",7:"Fabian Galdames",8:"Mario Campos",9:"Fabian Galdames",10:"Catalina Espinoza",11:"Carolina Tilleria",12:"Maria Valeska Torres",13:"Denisse Zavala",14:"Denisse Sanhueza",15:"Alondra Lagos",16:"Alicia",17:"Carolina Tilleria",18:"Alondra Lagos",19:"Fabian Galdames",20:"Paz Arriagada",21:"Yas Orellana",22:"Carolina Tilleria",23:"Alex Nuñez",24:"Natalia Caceres",25:"Eliana",26:"Catalina Alburquenque",27:"Catalina Espinoza",28:"Paola Beltran",29:"Catalina Espinoza",30:"Fabian Galdames",31:"Alex Nuñez",32:"Rolando Espinoza",33:"Gabriel Araya",34:"Kimberly Martinez",35:"Yohnma Prado",36:"Alex Nuñez",37:"Alex Nuñez",40:"Gabriel Araya",41:"Alex Nuñez",42:"Alex Nuñez",43:"Natalia Quezada",44:"Carmen Cruzat",45:"Jocelyn Espinoza",46:"Gabriel Araya",47:"Alex Nuñez",48:"Gabriel Araya",49:"Paola Gonzalez",50:"Paola Gonzalez",51:"Paola Gonzalez",52:"Alex Nuñez",53:"Carmen Cruzat",55:"Gabriel Araya",56:"Gabriel Araya",57:"Ailin Caceres",58:"Alex Nuñez",59:"Sofia Mena",60:"Macarena",62:"Gabriel Araya",64:"Gabriel Araya",66:"Alex Nuñez",68:"Jocelyn Espinoza",69:"Natalia Quezada",70:"Alex Nuñez",71:"Catalina Espinoza",75:"Jorge Castro",76:"Fabian Galdames",77:"Rolando Espinoza",79:"Catalina Espinoza",81:"Gabriel Araya",82:"Catalina Espinoza",83:"Catalina Espinoza",84:"Catalina Espinoza",85:"Constanza Cuevas",86:"Jorge Castro",88:"Alex Nuñez",90:"Gabriel Araya",95:"Fabian Galdames",98:"Alex Nuñez",99:"Alex Nuñez",100:"Gabriel Araya",101:"Maria Valeska Torres",104:"Benjamin Caceres Lopez",107:"Gabriel Araya",108:"Alex Nuñez",110:"Alex Nuñez",111:"Gabriel Araya",113:"Alex Nuñez",115:"Alex Nuñez",116:"Alex Nuñez",119:"Gabriel Araya",120:"Yaz Orellana",121:"Martina Caceres",124:"Natalia Quezada",127:"Gabriel Araya",132:"Gabriel Araya",134:"Alex Nuñez",137:"Alex Nuñez",139:"Gabriel Araya",140:"Alex Nuñez",141:"Gabriel Araya",145:"Alex Nuñez",150:"Alex Nuñez",154:"Gabriel Araya",158:"Alex Nuñez",160:"Gabriel Araya",162:"Alex Nuñez",165:"Gabriel Araya",169:"Natalia Quezada",170:"Alex Nuñez",175:"Jorge Castro",179:"Catalina Espinoza",190:"Gabriel Araya",192:"Alex Nuñez",197:"Alex Nuñez",199:"Gabriel Araya",200:"Fabian Galdames"};
+
+let extraVentas={};
+let selected=new Set();
+let isAdmin=false;
+
+function getNombre(n){
+  if(extraVentas[n]) return extraVentas[n].nombre||extraVentas[n];
+  if(VENDIDOS_BASE[n]) return VENDIDOS_BASE[n];
+  return null;
+}
+function isVendido(n){ return !!(VENDIDOS_BASE[n]||extraVentas[n]); }
+
+function updateStats(){
+  const total=Object.keys(VENDIDOS_BASE).length + Object.keys(extraVentas).filter(k=>!VENDIDOS_BASE[k]).length;
+  document.getElementById('cnt-s').textContent=total;
+  document.getElementById('cnt-a').textContent=200-total;
+  document.getElementById('cnt-t').textContent='$'+(total*PRICE).toLocaleString('es-CL');
+}
+
+function seleccionar(el,n){
+  if(selected.has(n)){selected.delete(n);el.classList.remove('selected');}
+  else{selected.add(n);el.classList.add('selected');}
+  updateSelBar();
+}
+function updateSelBar(){
+  const bar=document.getElementById('sel-bar');
+  if(!selected.size){bar.classList.remove('on');return;}
+  bar.classList.add('on');
+  const nums=[...selected].sort((a,b)=>a-b);
+  document.getElementById('sel-lbl').textContent=nums.join(', ');
+  document.getElementById('sel-tot').textContent='$'+(selected.size*PRICE).toLocaleString('es-CL');
+}
+function clearSel(){
+  selected.forEach(n=>{
+    const el=document.querySelector('.num[data-n="'+n+'"]');
+    if(el)el.classList.remove('selected');
+  });
+  selected.clear();updateSelBar();
+}
+function verPago(){
+  if(!selected.size)return;
+  const nums=[...selected].sort((a,b)=>a-b),total=selected.size*PRICE;
+  document.getElementById('pago-nums').textContent=nums.length===1?'Numero: '+nums[0]:'Numeros: '+nums.join(', ');
+  document.getElementById('pago-total').textContent='$'+total.toLocaleString('es-CL');
+  const msg=encodeURIComponent('Hola Marion! Quiero comprar el numero '+nums.join(', ')+' de la rifa del Smart TV. Ya transferi $'+total.toLocaleString('es-CL')+'. Te envio el comprobante.');
+  document.getElementById('btn-wa').onclick=()=>window.open('https://wa.me/'+WA+'?text='+msg,'_blank');
+  document.getElementById('ov-pago').classList.add('on');
+}
+function cerrarPago(){document.getElementById('ov-pago').classList.remove('on');}
+function cp(txt){navigator.clipboard.writeText(txt).then(()=>showToast('Copiado')).catch(()=>showToast('Copia: '+txt));}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2000);}
+
+function abrirAdmin(){
+  if(isAdmin){document.getElementById('ov-admin').classList.add('on');fillSelect();}
+  else{document.getElementById('ov-login').classList.add('on');document.getElementById('inp-pass').value='';}
+}
+function cerrarLogin(){document.getElementById('ov-login').classList.remove('on');}
+function cerrarAdmin(){document.getElementById('ov-admin').classList.remove('on');}
+function login(){
+  if(PASS.includes(document.getElementById('inp-pass').value)){
+    isAdmin=true;cerrarLogin();document.getElementById('ov-admin').classList.add('on');fillSelect();
+    document.getElementById('err-pass').style.display='none';
+  }else{document.getElementById('err-pass').style.display='block';}
+}
+function fillSelect(){
+  const sel=document.getElementById('sel-n');
+  sel.innerHTML='<option value="">-- Selecciona --</option>';
+  for(let i=1;i<=200;i++){if(!isVendido(i)){const o=document.createElement('option');o.value=i;o.textContent='Numero '+i;sel.appendChild(o);}}
+}
+function tab(t){
+  document.getElementById('t1').classList.toggle('on',t==='vender');
+  document.getElementById('t2').classList.toggle('on',t==='ventas');
+  document.getElementById('p-vender').style.display=t==='vender'?'':'none';
+  document.getElementById('p-ventas').style.display=t==='ventas'?'':'none';
+  if(t==='ventas')renderVentas();
+}
+function renderVentas(){
+  const list=document.getElementById('reg-list');
+  const extra=Object.keys(extraVentas).map(Number).sort((a,b)=>a-b);
+  document.getElementById('v-count').textContent=(Object.keys(VENDIDOS_BASE).length+extra.length)+' ventas';
+  if(!extra.length){list.innerHTML='<div class="empty">Solo ventas del PDF cargadas</div>';return;}
+  list.innerHTML='';
+  extra.forEach(n=>{
+    const v=extraVentas[n],div=document.createElement('div');div.className='reg';
+    div.innerHTML='<div style="display:flex;justify-content:space-between;"><div><span class="rn">#'+n+'</span><span class="rname">'+(v.nombre||v)+'</span><div class="rref">Ref: '+(v.ref||'-')+'</div></div><button class="btn-d" onclick="anular('+n+')">Anular</button></div>';
+    list.appendChild(div);
+  });
+}
+async function registrar(){
+  const num=parseInt(document.getElementById('sel-n').value);
+  const nombre=document.getElementById('inp-n').value.trim();
+  const ref=document.getElementById('inp-r').value.trim();
+  if(!num||!nombre||!ref){document.getElementById('err-v').style.display='block';return;}
+  document.getElementById('err-v').style.display='none';
+  const now=new Date(),fecha=now.toLocaleDateString('es-CL')+' '+now.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+  const data={nombre,ref,fecha};
+  extraVentas[num]=data;
+  try{await fetch(DB+'/n'+num+'.json',{method:'PUT',body:JSON.stringify(data)});}catch(e){}
+  // Mark cell as sold
+  const cell=document.querySelector('.num[data-n="'+num+'"]');
+  if(cell){cell.classList.remove('avail','selected');cell.classList.add('sold');cell.onclick=null;cell.title=nombre;}
+  selected.delete(num);
+  updateSelBar();updateStats();fillSelect();
+  document.getElementById('inp-n').value='';document.getElementById('inp-r').value='';document.getElementById('sel-n').value='';
+  showToast('N '+num+' registrado a '+nombre);
+}
+async function anular(n){
+  if(confirm('Anular venta del numero '+n+'?')){
+    delete extraVentas[n];
+    try{await fetch(DB+'/n'+n+'.json',{method:'DELETE'});}catch(e){}
+    const cell=document.querySelector('.num[data-n="'+n+'"]');
+    if(cell){
+      cell.classList.remove('sold');cell.classList.add('avail');
+      cell.onclick=function(){seleccionar(this,n);};cell.title='';
+    }
+    updateStats();fillSelect();renderVentas();showToast('Numero '+n+' liberado');
+  }
+}
+async function resetTodo(){
+  if(confirm('Eliminar ventas extras?')){
+    extraVentas={};
+    try{await fetch(DB+'/.json',{method:'PUT',body:'null'});}catch(e){}
+    updateStats();fillSelect();renderVentas();showToast('Reiniciado');
+  }
+}
+
+// Add data-n to all avail cells
+document.querySelectorAll('.num.avail').forEach(el=>{
+  const n=parseInt(el.textContent);
+  el.dataset.n=n;
+  el.onclick=function(){seleccionar(this,n);};
+});
+
+// Load extra ventas from Firebase
+async function loadExtra(){
+  try{
+    const r=await fetch(DB+'/.json');
+    const d=await r.json();
+    if(!d||typeof d!=='object') return;
+    Object.entries(d).forEach(([k,v])=>{
+      if(!v) return;
+      const n=parseInt(k.replace(/^n/,''));
+      if(n>0&&n<=200&&!VENDIDOS_BASE[n]){
+        extraVentas[n]=v;
+        const cell=document.querySelector('.num[data-n="'+n+'"]');
+        if(cell){cell.classList.remove('avail','selected');cell.classList.add('sold');cell.onclick=null;cell.title=v.nombre||v;}
+      }
+    });
+    updateStats();
+  }catch(e){}
+}
+
+updateStats();
+loadExtra();
+setInterval(loadExtra,10000);
+</script>
+</body>
+</html>
